@@ -31,6 +31,10 @@ class DomoHomeController extends Controller
         $lumieres = $repoLumiere->findAll();
         if (empty($lumieres)) {
             $lumiere = new \AppBundle\Entity\Lumiere();
+            $lumiere->setEtat(0);
+            $manager->persist($lumiere);
+            $manager->flush();
+
         } else {
             $lumiere = $lumieres[0];
         }
@@ -66,6 +70,9 @@ class DomoHomeController extends Controller
         $volets = $repoVolet->findAll();
         if (empty($volets)) {
             $volet = new \AppBundle\Entity\Volet();
+            $volet->setEtat(0);
+            $manager->persist($volet);
+            $manager->flush();
         } else {
             $volet = $volets[0];
         }
@@ -81,7 +88,6 @@ class DomoHomeController extends Controller
 
 
         if (!is_null($offVolet)) {
-            $volet->setEtat(0);
             $manager->persist($volet);
             $manager->flush();
             return $this->redirectToRoute("controleur");
@@ -103,6 +109,9 @@ class DomoHomeController extends Controller
         $clims = $repoClim->findAll();
         if (empty($clims)) {
             $clim = new \AppBundle\Entity\Clim_chauffage();
+            $manager->persist($clim);
+            $manager->flush();
+
         } else {
             $clim = $clims[0];
         }
