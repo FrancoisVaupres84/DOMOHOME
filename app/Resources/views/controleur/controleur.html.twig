@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<body>
+		<div class="global">
+			<H1>Panneau de controle</H1>
+			<div class="controle">
+
+			       {# section lumière #}
+
+				<div class="lumiere">
+					<div class="lumiereControle">
+						<H3>Lumière</H3>
+						<div class="bouton">
+							<form action="" method="POST">
+								<input class="btn btn-success" type="submit" name="OffLight" value="Eteinte"/>
+								<input class="btn btn-success" type="submit" name="OnLight" value="Allumée"/>
+							</form>
+						</div>
+						<form action="" method="POST">
+							<input  type="range" min="0" max="100" step="1" value={{valueLight}} id="slideLight" name="etatLight" onchange='document.getElementById("valLight").value = "Intensité = " + document.getElementById("slideLight").value + " % ";'/>
+							<input class="btn btn-success" type="text" name="light" id="valLight" value="Intensité = {{valueLight}} %" disabled/>
+							<br/>
+						</form>
+					</div>
+					<div class="lumiereAffichage">
+						<img id="light" src="{{ asset('img/ampoule.png') }}" alt="ampoule" width="160" height="200">
+					</div>
+				</div>
+
+			       {# section volet #}
+
+				<div class="volet">
+					<div class="voletControle">
+						<H3>Volet</H3>
+						<div class="bouton">
+							<form action="" method="POST">
+								<input class="btn btn-success" type="submit" name="OffVolet" value="Ouvert"/>
+								<input class="btn btn-success" type="submit" name="OnVolet" value="Fermé"/>
+							</form>
+						</div>
+						<form action="" method="POST">
+							<input  type="range" min="0" max="100" step="1" value={{valueVolet}} id="slideVolet" name="etatVolet" onchange='document.getElementById("valVolet").value = "Fermeture = " + document.getElementById("slideVolet").value + " % ";'/>
+							<input class="btn btn-success" type="text" name="volet" id="valVolet" value="Fermeture = {{valueVolet}} %" disabled/>
+							<br/>
+						</form>
+					</div>
+					<div class="voletAffichage">
+						<div id="volet1"><img name="xxx" src="{{ asset('img/fenetre.png') }}" width="200" height="200" alt=""></div>
+						<div id="volet2"><img name="yyy" src="{{ asset('img/volet.jpeg') }}" width="200" height="{{valueVolet *2 }}" alt=""></div>
+					</div>
+				</div>
+
+			       {# section clim/chauffage #}
+
+				<div class="clim">
+					<div class="climControle">
+						<H3>Clim/Chauffage</H3>
+						<div class="bouton">
+							<form action="" method="POST">
+								{% for mode in modes  %}
+									<input class="btn btn-success" type="submit" name="mode" value="{{mode.nom}}"/>
+								{% endfor %}
+							</form>
+						</div>
+						{% if modeSelectionne is not null %}
+							- Mode:{{modeSelectionne.nom}}
+							<br>
+							{% if modeSelectionne.tempMax is not null %}
+
+								- Température Max:{{modeSelectionne.tempMax}}C°
+								<br>
+							{% endif %}
+
+							{% if modeSelectionne.tempMin is not null %}
+
+								- Température Min:{{modeSelectionne.tempMin}}C°
+								<br>
+							{% endif %}
+
+							{% if modeSelectionne.nom == "ETE" %}
+								<img id="hot" src="{{ asset('img/soleil.png') }}" alt="ampoule" width="50" height="50">
+							{% elseif modeSelectionne.nom == "HIVER"  %}
+								<img id="hot" src="{{ asset('img/flocon.png') }}" alt="ampoule" width="50" height="50">
+							{% elseif modeSelectionne.nom == "ABSENT"  %}
+								<img id="hot" src="{{ asset('img/interdit.png') }}" alt="ampoule" width="50" height="50">
+							{% endif %}
+						{% else %}
+							Veuillez selectionner un mode de fonctionnement.
+						{% endif %}
+					</div>
+					<div class="climAffichage">
+						<div class="img">
+							<img id="hot" src="{{ asset('img/clim.png') }}" alt="ampoule" width="200" height="200">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			       {# section scénarios #}
+
+			<div class="scenario">
+				<H1>Scénarios</H1>
+				<br>
+				<div class="bouton_scenario">
+					{% for scenario in scenarios  %}
+						<div>
+							<form action="" method="POST">
+								{% if scenario.nom is not null  %}
+									<input id ="mode" class="btn btn-success" type="submit" name="scenario" value="{{scenario.nom}}"/>
+								{% endif %}
+							</form>
+							{{scenario.saison}}
+							<br>
+							{% set imageName = scenario.nom %}
+							{% set imageNameFinal = imageName ~ '.png' %}
+							{% if imageNameFinal  in images  %}
+								<img id="hot" src="{{ asset('img/') }}{{scenario.nom}}.png" alt="ampoule" width="50" height="50">
+							{% endif %}
+
+						</div>
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+			       {# script ajax pour recupérer les données du formulaire lumiere #}
+
+
+		<script>
+			$('#slideLight').on("change", function () {
+				var valLight = $('#slideLight').val(); // on sécurise les données
+				var path = "controleur";
+				console.log(valLight);
+				$.ajax({
+					url: path, // on donne l'URL du fichier de traitement
+					type: "POST", // la requête est de type POST
+					data: "etatLight=" + valLight // et on envoie nos données
+				});
+				setTimeout(function () {
+					window.location.reload(true);
+				}, 1);
+			});
+		</script>
+
+			       {# script ajax pour recupérer les données du formulaire volet #}
+
+		<script>
+			$('#slideVolet').on("change", function () {
+				var valVolet = $('#slideVolet').val(); // on sécurise les données
+				var path = "controleur";
+				console.log(valVolet);
+				$.ajax({
+					url: path, // on donne l'URL du fichier de traitement
+					type: "POST", // la requête est de type POST
+					data: "etatVolet=" + valVolet // et on envoie nos données
+				});
+				setTimeout(function () {
+				window.location.reload(true);
+				}, 1);
+			});
+		</script>
+
+			       {# css pour animer la lumiere #}
+
+		<style>
+			.lumiereAffichage {
+				width: 200px;
+				height: 200px;
+				background-color: rgba(247, 255, 60, {{valueLight / 100}});
+				margin-left: 20%;
+
+				border-radius : 100px;
+
+
+			}
+		</style>
+	</body>
+{% endblock %}
+{% block javascripts %}{% endblock %}

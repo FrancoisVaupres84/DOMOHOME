@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="content">
+	<H1>Créer un Scenario</H1>
+	<div class="panel-body">
+		<div class="form">
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
+			{{ form_row(form.nom,{'label':'Nom du scenario (en majuscule et sans caractères speciaux)','attr':{'placeholder': ' ex: DODO'}}) }}
+			{{ form_row(form.saison,{'label':'Saison du scenario','attr':{'placeholder': ' ex: été'}}) }}
+			{{ form_row(form.lumiere,{'label':'Saisissez l\'intensité de la lumiere (%)','attr':{'placeholder': ' ex: 60'}}) }}
+			{{ form_row(form.volet,{'label':'Saisissez le pourcentage de fermeture du volet (%)','attr':{'placeholder': 'ex: 50'}}) }}
+			{{ form_row(form.mode,{'label':'Selectionnez un mode de chauffage/climatisation'}) }}
+			<br>
+			<input type="submit" value="Créer" class="btn btn-success"/>
+			<a class="btn btn-success" id="b" href="{{ path("scenario.liste") }}">Annuler</a>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+
+	{% endblock %}
+
+	{% block javascripts %}{% endblock %}

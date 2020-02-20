@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="content">
+	<H1>Créer un mode de chauffage/climatisation</H1>
+	<div class="panel-body">
+		<div class="form">
+			{{ form_start(form) }}
+			{{ form_row(form.nom,{'label':'Nom du mode (en majuscule et sans caractères speciaux)','attr':{'placeholder': ' ex: ETE'}}) }}
+			{{ form_row(form.temp_min,{'label':'Saisissez la température minimum de ce mode','attr':{'placeholder': ' ex: 18.5'}}) }}
+			{{ form_row(form.temp_max,{'label':'Saisissez la température maximum de ce mode','attr':{'placeholder': 'ex: 30.5'}}) }}
+			<br>
+			<input type="submit" value="Modifier" class="btn btn-success"/>
+			<a class="btn btn-success" id="b" href="{{ path("mode.liste") }}">Annuler</a>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+
+	{% endblock %}
+
+	{% block javascripts %}{% endblock %}

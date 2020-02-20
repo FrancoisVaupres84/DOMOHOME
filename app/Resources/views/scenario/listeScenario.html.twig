@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="content">
+		<H1>Liste des scénarios </H1>
+
+
+		<div class="globalListe">
+			{% if scenarios is not null %}
+
+				{% for scenario in scenarios  %}
+					Nom:
+					{{scenario.nom}}
+					- Intensité lumineuse:
+					{{scenario.lumiere}}%
+										- Fermeture volet:
+					{{scenario.volet}}%
+					{% if scenario.mode is not null %}
+
+						- Mode de chauffage:
+						{{scenario.mode.nom}}
+					{% endif %}
+
+					<a href="{{ path('scenario.edit',{'id':scenario.id}) }}">
+						<i class="material-icons">
+							edit
+						</i><a/>
+						&nbsp;
+						<a href="{{ path('scenario.delete',{'id':scenario.id}) }}">
+							<i class="material-icons">
+								delete
+							</i><a/>
+							<br>
+						{% endfor %}
+					{% endif %}
+					<br>
+				<div class="boutonListe">
+				<a class="btn btn-success" id="" href="{{ path("scenario.create") }}">Créer un scénario</a>
+
+			</div>
+		</div>
+
+
+	{% endblock %}
+
+	{% block javascripts %}{% endblock %}

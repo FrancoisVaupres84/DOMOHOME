@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+	<div class="content">
+		<div class="panel-body">
+			<H2>Voulez vous vraiment supprimer le mode "{{mode.nom}}"?
+			</H2>
+			{{ form_start(form) }}
+			<input type="submit" value="Supprimer" class="btn btn-success"/>
+			<a class="btn btn-success" id="" href="{{ path("mode.liste") }}">Annuler</a>
+			{{ form_end(form) }}
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

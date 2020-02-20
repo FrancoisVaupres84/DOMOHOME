@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+  <html>
+    <body>
+      <div class="entrer">
+        <div class="img">
+          <img id="domo"
+            src="{{ asset('img/domo.png') }}"
+            alt="ampoule"
+            width="500"
+            height="500" />
+        </div> <H1 class="titre">
+          BIENVENUE SUR VOTRE APPLICATION DOMOHOME
+        </H1>
+        <a id="entrer" class="btn btn-success" href="{{ path('controleur') }}">
+          Entrer
+        </a>
+      </div>
+    </body>
+  </html>
+{% endblock %}
