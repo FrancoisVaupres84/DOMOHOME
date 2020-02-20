@@ -17,8 +17,10 @@
 							</form>
 						</div>
 						<form action="" method="POST">
+						{% if valueLight is not null %}
 							<input  type="range" min="0" max="100" step="1" value={{valueLight}} id="slideLight" name="etatLight" onchange='document.getElementById("valLight").value = "Intensité = " + document.getElementById("slideLight").value + " % ";'/>
 							<input class="btn btn-success" type="text" name="light" id="valLight" value="Intensité = {{valueLight}} %" disabled/>
+						{% endif %}
 							<br/>
 						</form>
 					</div>
@@ -39,14 +41,18 @@
 							</form>
 						</div>
 						<form action="" method="POST">
+							{% if valueVolet is not null %}
 							<input  type="range" min="0" max="100" step="1" value={{valueVolet}} id="slideVolet" name="etatVolet" onchange='document.getElementById("valVolet").value = "Fermeture = " + document.getElementById("slideVolet").value + " % ";'/>
 							<input class="btn btn-success" type="text" name="volet" id="valVolet" value="Fermeture = {{valueVolet}} %" disabled/>
 							<br/>
+							{% endif %}
 						</form>
 					</div>
 					<div class="voletAffichage">
+						{% if valueVolet is not null %}
 						<div id="volet1"><img name="xxx" src="{{ asset('img/fenetre.png') }}" width="200" height="200" alt=""></div>
 						<div id="volet2"><img name="yyy" src="{{ asset('img/volet.jpeg') }}" width="200" height="{{valueVolet *2 }}" alt=""></div>
+						{% endif %}
 					</div>
 				</div>
 
@@ -57,9 +63,11 @@
 						<H3>Clim/Chauffage</H3>
 						<div class="bouton">
 							<form action="" method="POST">
+								{% if modes is not null %}
 								{% for mode in modes  %}
 									<input class="btn btn-success" type="submit" name="mode" value="{{mode.nom}}"/>
 								{% endfor %}
+								{% endif %}
 							</form>
 						</div>
 						{% if modeSelectionne is not null %}
@@ -102,6 +110,7 @@
 				<H1>Scénarios</H1>
 				<br>
 				<div class="bouton_scenario">
+				{% if scenarios is not null %}
 					{% for scenario in scenarios  %}
 						<div>
 							<form action="" method="POST">
@@ -120,6 +129,7 @@
 						</div>
 
 					{% endfor %}
+				{% endif %}
 				</div>
 			</div>
 		</div>

@@ -3,7 +3,8 @@
 {% block body %}
 
 	<div class="content">
-		<H1>Liste des scénarios </H1>
+		<H1>Liste des scénarios
+		</H1>
 
 
 		<div class="globalListe">
@@ -14,7 +15,7 @@
 					{{scenario.nom}}
 					- Intensité lumineuse:
 					{{scenario.lumiere}}%
-										- Fermeture volet:
+															- Fermeture volet:
 					{{scenario.volet}}%
 					{% if scenario.mode is not null %}
 
@@ -33,15 +34,18 @@
 							</i><a/>
 							<br>
 						{% endfor %}
+					{% else %}
+					Liste des Scenario vide.
 					{% endif %}
+
 					<br>
-				<div class="boutonListe">
-				<a class="btn btn-success" id="" href="{{ path("scenario.create") }}">Créer un scénario</a>
+					<div class="boutonListe">
+						<a class="btn btn-success" id="" href="{{ path("scenario.create") }}">Créer un scénario</a>
 
-			</div>
-		</div>
+					</div>
+				</div>
 
 
-	{% endblock %}
+			{% endblock %}
 
-	{% block javascripts %}{% endblock %}
+			{% block javascripts %}{% endblock %}
