@@ -75,7 +75,7 @@ class DomoHomeController extends Controller
             $manager->flush();
         } else {
             $volet = $volets[0];
-        }
+                }
 
         /*On récupère les données du volet du formulaire */
 
@@ -88,6 +88,7 @@ class DomoHomeController extends Controller
 
 
         if (!is_null($offVolet)) {
+            $volet->setEtat(0);
             $manager->persist($volet);
             $manager->flush();
             return $this->redirectToRoute("controleur");
